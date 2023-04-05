@@ -9,7 +9,7 @@ namespace Sumas__TheGame
 {
     internal class GameManager
     {
-        static int enemyCounter = 0;
+        //static int enemyCounter = 0;
 
         public static Tower TowerCharacterGenerator()
         {
@@ -42,7 +42,7 @@ namespace Sumas__TheGame
                     Character character = EnemyGenerator(type);
                     list.Add(character);
                 }
-                enemyCounter++;
+                //enemyCounter++;
                 Floor floor = new Floor(list);
                 floorList.Add(floor);
             }
@@ -79,7 +79,8 @@ namespace Sumas__TheGame
         public static Character EnemyGenerator(Character.type type)
         {
             
-            Character character = new Character((2 + enemyCounter*2), type);
+            //Character character = new Character((4 + enemyCounter*2), type);
+            Character character = new Character((4), type);
 
             return character;
         }
@@ -90,7 +91,7 @@ namespace Sumas__TheGame
         public static void MoveAndFight(Character player, Floor actualFloor, Floor floorToMove)
         {
 
-            if(floorToMove.CharactersList.Count>1)
+            if(floorToMove.CharactersList.Count>0)
             {
                 actualFloor.RemoveCharacter(player);
                 floorToMove.AddCharacter(player);
@@ -101,6 +102,7 @@ namespace Sumas__TheGame
                 {
                     if (result > 0)
                     {
+                        //floorToMove.CharactersList[floorToMove.CharactersList.Count - 1].Level = 11;
                         floorToMove.CharactersList[floorToMove.CharactersList.Count - 1].Level += floorToMove.CharactersList[floorToMove.CharactersList.Count - 2].Level;
                         floorToMove.RemoveCharacter(floorToMove.CharactersList[floorToMove.CharactersList.Count - 2]);
                     }
