@@ -44,12 +44,23 @@ namespace Sumas__TheGame
         }
 
         [Test]
-        public void Test3()
+        public void CharactersHaveALevel()
         {
             Tower tower1 = GameManager.TowerCharacterGenerator();
+            Tower enemyTower = GameManager.TowerGenerator(3, 2);
+            
 
-            Assert.IsTrue(tower1.Type.ToString() == Character.type.main.ToString()); //Starts on own tower
-            Assert.Less(tower1.FloorList.Count, 3); //few floors on character's tower
+            if (tower1.FloorList[0].CharactersList.Count > 0)
+            {
+                Assert.IsTrue(tower1.FloorList[0].CharactersList[0].Level != 0);
+            }
+            else if (tower1.FloorList[1].CharactersList.Count > 0)
+            {
+                Assert.IsTrue(tower1.FloorList[1].CharactersList[0].Level != 0);
+            }
+
+            Assert.IsTrue(enemyTower.FloorList[0].CharactersList[0].Level != 0);
+                 
         }
     }
 }

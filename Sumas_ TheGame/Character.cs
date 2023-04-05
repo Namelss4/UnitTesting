@@ -11,19 +11,20 @@ namespace Sumas__TheGame
         public enum type
         {
             main, 
-            evil
+            evil, 
+            help
         }
-        private type tipo;
+        private type chType;
         private int level;
 
         public Character(int level, type characterType)
         {
             this.level = level;
-            this.tipo = characterType;
+            this.chType = characterType;
         }
 
         public int Level { get => level; set => level = value; }
-        private type Tipo { get => tipo; set => tipo = value; }
+        public type ChType { get => chType; set => chType = value; }
         
     }
 }

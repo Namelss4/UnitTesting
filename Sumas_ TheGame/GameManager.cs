@@ -85,13 +85,27 @@ namespace Sumas__TheGame
                 actualFloor.RemoveCharacter(player);
                 floorToMove.AddCharacter(player);
 
+
                 int result = floorToMove.CharactersList[floorToMove.CharactersList.Count - 1].Level - floorToMove.CharactersList[floorToMove.CharactersList.Count - 2].Level;
-                if (result > 0)
+                if (floorToMove.CharactersList[floorToMove.CharactersList.Count - 2].ChType == Character.type.evil)
                 {
-                    floorToMove.RemoveCharacter(floorToMove.CharactersList[floorToMove.CharactersList.Count - 2]);
+                    if (result > 0)
+                    {
+                        floorToMove.CharactersList[floorToMove.CharactersList.Count - 1].Level += floorToMove.CharactersList[floorToMove.CharactersList.Count - 2].Level;
+                        floorToMove.RemoveCharacter(floorToMove.CharactersList[floorToMove.CharactersList.Count - 2]);
+                    }
+                    else
+                    {
+                        floorToMove.CharactersList[floorToMove.CharactersList.Count - 1].Level = 0;
+                        floorToMove.RemoveCharacter(player);
+                    }
                 }
                 else
-                    floorToMove.RemoveCharacter(player);
+                {
+                    floorToMove.CharactersList[floorToMove.CharactersList.Count - 1].Level += floorToMove.CharactersList[floorToMove.CharactersList.Count - 2].Level;
+                    floorToMove.RemoveCharacter(floorToMove.CharactersList[floorToMove.CharactersList.Count - 2]);
+                }
+                
             }
             
         }
