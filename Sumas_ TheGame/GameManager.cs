@@ -9,6 +9,8 @@ namespace Sumas__TheGame
 {
     internal class GameManager
     {
+        static int enemyCounter = 0;
+
         public static Tower TowerCharacterGenerator()
         {
             List<Floor> floorList= FloorGeneratorForMain(2,1,Character.type.main);
@@ -73,11 +75,19 @@ namespace Sumas__TheGame
             Character character = new Character(7, type);
             return character;
         }
+        public static Character EnemyGenerator(Character.type type)
+        {
+            
+            Character character = new Character((2 + enemyCounter*2), type);
+            enemyCounter++;
+
+            return character;
+        }
         public static void AddFloor(Tower tower, Floor floor)
         {
             tower.FloorList.Add(floor);
         }
-        public static void MoveAndFight(PlayerController player, Floor actualFloor, Floor floorToMove)
+        public static void MoveAndFight(Character player, Floor actualFloor, Floor floorToMove)
         {
 
             if(floorToMove.CharactersList.Count>1)
