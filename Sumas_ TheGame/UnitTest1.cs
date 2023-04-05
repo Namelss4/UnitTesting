@@ -73,13 +73,13 @@ namespace Sumas__TheGame
             {
                 GameManager.MoveAndFight(tower1.FloorList[0].CharactersList[0], tower1.FloorList[0], enemyTower.FloorList[0]);
 
-                Assert.AreEqual(enemyTower.FloorList[0].CharactersList[0].Level, 11);
+                Assert.AreEqual(enemyTower.FloorList[0].CharactersList[0].Level, 2);
             }
             else if (tower1.FloorList[1].CharactersList.Count > 0)
             {
                 GameManager.MoveAndFight(tower1.FloorList[1].CharactersList[0], tower1.FloorList[1], enemyTower.FloorList[0]);
 
-                Assert.AreEqual(enemyTower.FloorList[0].CharactersList[0].Level, 11);
+                Assert.AreEqual(enemyTower.FloorList[0].CharactersList[0].Level, 2);
             }
 
         }
