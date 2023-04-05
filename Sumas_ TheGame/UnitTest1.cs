@@ -67,21 +67,23 @@ namespace Sumas__TheGame
         public void HigherLevelWins()
         {
             Tower tower1 = GameManager.TowerCharacterGenerator();
-            Tower enemyTower = GameManager.TowerGenerator(3, 2);
+            Tower enemyTower = GameManager.TowerGenerator(2, 1);
 
             if (tower1.FloorList[0].CharactersList.Count > 0)
             {
                 GameManager.MoveAndFight(tower1.FloorList[0].CharactersList[0], tower1.FloorList[0], enemyTower.FloorList[0]);
 
-                Assert.AreEqual(tower1.FloorList[0].CharactersList[0].Level, 11);
+                Assert.AreEqual(enemyTower.FloorList[0].CharactersList[0].Level, 11);
             }
             else if (tower1.FloorList[1].CharactersList.Count > 0)
             {
-                GameManager.MoveAndFight(tower1.FloorList[1].CharactersList[0], tower1.FloorList[0], enemyTower.FloorList[0]);
+                GameManager.MoveAndFight(tower1.FloorList[1].CharactersList[0], tower1.FloorList[1], enemyTower.FloorList[0]);
 
-                Assert.AreEqual(tower1.FloorList[1].CharactersList[0].Level, 11);
+                Assert.AreEqual(enemyTower.FloorList[0].CharactersList[0].Level, 11);
             }
 
         }
+
+
     }
 }

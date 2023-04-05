@@ -39,9 +39,10 @@ namespace Sumas__TheGame
 
                 for (int j = 0; j < numberCharacters; j++)
                 {
-                    Character character = CharacterGenerator(type);
+                    Character character = EnemyGenerator(type);
                     list.Add(character);
                 }
+                enemyCounter++;
                 Floor floor = new Floor(list);
                 floorList.Add(floor);
             }
@@ -79,7 +80,6 @@ namespace Sumas__TheGame
         {
             
             Character character = new Character((2 + enemyCounter*2), type);
-            enemyCounter++;
 
             return character;
         }
