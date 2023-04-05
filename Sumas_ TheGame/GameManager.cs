@@ -84,7 +84,7 @@ namespace Sumas__TheGame
 
             return character;
         }
-        public static void MoveAndFight(Character player, Floor actualFloor, Floor floorToMove, Tower originTower)
+        public static void MoveAndFight(Character player, Floor actualFloor, Floor floorToMove, Tower previousTower)
         {
 
             if(floorToMove.CharactersList.Count>0)
@@ -93,9 +93,9 @@ namespace Sumas__TheGame
                 actualFloor.RemoveCharacter(player);
                 floorToMove.AddCharacter(player);
 
-                if (actualFloor.CharactersList.Count == 0 && originTower.Type != Character.type.main)
+                if (actualFloor.CharactersList.Count == 0 && previousTower.Type != Character.type.main)
                 {
-                    originTower.RemoveFloor(actualFloor); 
+                    previousTower.RemoveFloor(actualFloor); 
                 }
 
 
@@ -114,6 +114,7 @@ namespace Sumas__TheGame
                         floorToMove.CharactersList[floorToMove.CharactersList.Count - 1].Level = 0;
                        
                         floorToMove.RemoveCharacter(player);
+                        
                     }
                 }
                 else
