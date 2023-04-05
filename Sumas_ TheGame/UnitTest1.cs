@@ -104,13 +104,13 @@ namespace Sumas__TheGame
 
             if (tower1.FloorList[0].CharactersList.Count > 0)
             {
-                GameManager.MoveAndFight(tower1.FloorList[0].CharactersList[0], tower1.FloorList[0], enemyTower.FloorList[0]);
+                GameManager.MoveAndFight(tower1.FloorList[0].CharactersList[0], tower1.FloorList[0], enemyTower.FloorList[0], tower1);
 
                 Assert.AreEqual(enemyTower.FloorList[0].CharactersList.Count, 1);
             }
             else if (tower1.FloorList[1].CharactersList.Count > 0)
             {
-                GameManager.MoveAndFight(tower1.FloorList[1].CharactersList[0], tower1.FloorList[1], enemyTower.FloorList[0]);
+                GameManager.MoveAndFight(tower1.FloorList[1].CharactersList[0], tower1.FloorList[1], enemyTower.FloorList[0], tower1);
 
                 Assert.AreEqual(enemyTower.FloorList[0].CharactersList.Count, 1);
             }
@@ -126,14 +126,14 @@ namespace Sumas__TheGame
 
             if (tower1.FloorList[0].CharactersList.Count > 0)
             {
-                GameManager.MoveAndFight(tower1.FloorList[0].CharactersList[0], tower1.FloorList[0], enemyTower.FloorList[0]);
+                GameManager.MoveAndFight(tower1.FloorList[0].CharactersList[0], tower1.FloorList[0], enemyTower.FloorList[0], tower1    );
 
                 Assert.AreEqual(enemyTower.FloorList[0].CharactersList.Count, 1);
                 Assert.IsTrue(enemyTower.FloorList[0].CharactersList[0].ChType == Character.type.evil);
             }
             else if (tower1.FloorList[1].CharactersList.Count > 0)
             {
-                GameManager.MoveAndFight(tower1.FloorList[1].CharactersList[0], tower1.FloorList[1], enemyTower.FloorList[0]);
+                GameManager.MoveAndFight(tower1.FloorList[1].CharactersList[0], tower1.FloorList[1], enemyTower.FloorList[0], tower1);
 
                 Assert.AreEqual(enemyTower.FloorList[0].CharactersList.Count, 1);
                 Assert.IsTrue(enemyTower.FloorList[0].CharactersList[0].ChType == Character.type.evil);
@@ -149,19 +149,71 @@ namespace Sumas__TheGame
 
             if (tower1.FloorList[0].CharactersList.Count > 0)
             {
-                GameManager.MoveAndFight(tower1.FloorList[0].CharactersList[0], tower1.FloorList[0], enemyTower.FloorList[0]);
+                GameManager.MoveAndFight(tower1.FloorList[0].CharactersList[0], tower1.FloorList[0], enemyTower.FloorList[0], tower1);
 
                 Assert.AreEqual(enemyTower.FloorList[0].CharactersList[0].Level, 11);
             }
             else if (tower1.FloorList[1].CharactersList.Count > 0)
             {
-                GameManager.MoveAndFight(tower1.FloorList[1].CharactersList[0], tower1.FloorList[1], enemyTower.FloorList[0]);
+                GameManager.MoveAndFight(tower1.FloorList[1].CharactersList[0], tower1.FloorList[1], enemyTower.FloorList[0], tower1);
 
                 Assert.AreEqual(enemyTower.FloorList[0].CharactersList[0].Level, 11);
             }
 
         }
 
+        [Test]
+        public void HigherLevelAddsLesserLevelOnEnemy()
+        {
+            Tower tower1 = GameManager.TowerCharacterGenerator();
+            Tower enemyTower = GameManager.TowerGenerator(2, 1);
+            enemyTower.FloorList[0].CharactersList[0].Level = 10;
+
+            if (tower1.FloorList[0].CharactersList.Count > 0)
+            {
+                GameManager.MoveAndFight(tower1.FloorList[0].CharactersList[0], tower1.FloorList[0], enemyTower.FloorList[0], tower1);
+
+                Assert.AreEqual(enemyTower.FloorList[0].CharactersList[0].Level, 17);
+            }
+            else if (tower1.FloorList[1].CharactersList.Count > 0)
+            {
+                GameManager.MoveAndFight(tower1.FloorList[1].CharactersList[0], tower1.FloorList[1], enemyTower.FloorList[0], tower1);
+
+                Assert.AreEqual(enemyTower.FloorList[0].CharactersList[0].Level, 17);
+            }
+        }
+
+        [Test]
+        public void CharacterLevelTurnsCero()
+        {
+            Tower tower1 = GameManager.TowerCharacterGenerator();
+            Tower enemyTower = GameManager.TowerGenerator(2, 1);
+            enemyTower.FloorList[0].CharactersList[0].Level = 10;
+
+            int pastMainLevel = tower1.FloorList[0].CharactersList[0].Level;
+            int pastEnemyLevel = 10;
+
+            if (tower1.FloorList[0].CharactersList.Count > 0)
+            {
+                
+                GameManager.MoveAndFight(tower1.FloorList[0].CharactersList[0], tower1.FloorList[0], enemyTower.FloorList[0], tower1);
+
+                Assert.AreEqual(enemyTower.FloorList[0].CharactersList[0].Level, pastMainLevel+pastEnemyLevel);
+            }
+            else if (tower1.FloorList[1].CharactersList.Count > 0)
+            {
+                GameManager.MoveAndFight(tower1.FloorList[1].CharactersList[0], tower1.FloorList[1], enemyTower.FloorList[0], tower1);
+
+                Assert.AreEqual(enemyTower.FloorList[0].CharactersList[0].Level, pastMainLevel + pastEnemyLevel);
+            }
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            GameManager.enemyCounter = 0;
+        }
+        
 
     }
 }

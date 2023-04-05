@@ -9,7 +9,7 @@ namespace Sumas__TheGame
 {
     internal class GameManager
     {
-        //static int enemyCounter = 0;
+        public static int enemyCounter = 0;
 
         public static Tower TowerCharacterGenerator()
         {
@@ -42,7 +42,7 @@ namespace Sumas__TheGame
                     Character character = EnemyGenerator(type);
                     list.Add(character);
                 }
-                //enemyCounter++;
+                enemyCounter++;
                 Floor floor = new Floor(list);
                 floorList.Add(floor);
             }
@@ -79,22 +79,24 @@ namespace Sumas__TheGame
         public static Character EnemyGenerator(Character.type type)
         {
             
-            //Character character = new Character((4 + enemyCounter*2), type);
-            Character character = new Character((4), type);
+            Character character = new Character((4 + enemyCounter*2), type);
+            //Character character = new Character((4), type);
 
             return character;
         }
-        public static void AddFloor(Tower tower, Floor floor)
-        {
-            tower.FloorList.Add(floor);
-        }
-        public static void MoveAndFight(Character player, Floor actualFloor, Floor floorToMove)
+        public static void MoveAndFight(Character player, Floor actualFloor, Floor floorToMove, Tower originTower)
         {
 
             if(floorToMove.CharactersList.Count>0)
             {
+
                 actualFloor.RemoveCharacter(player);
                 floorToMove.AddCharacter(player);
+
+                if (actualFloor.CharactersList.Count == 0 && originTower.Type != Character.type.main)
+                {
+                    originTower.RemoveFloor(actualFloor); 
+                }
 
 
                 int result = floorToMove.CharactersList[floorToMove.CharactersList.Count - 1].Level - floorToMove.CharactersList[floorToMove.CharactersList.Count - 2].Level;
@@ -108,7 +110,9 @@ namespace Sumas__TheGame
                     }
                     else
                     {
+                        floorToMove.CharactersList[floorToMove.CharactersList.Count - 2].Level += player.Level;
                         floorToMove.CharactersList[floorToMove.CharactersList.Count - 1].Level = 0;
+                       
                         floorToMove.RemoveCharacter(player);
                     }
                 }
